@@ -4,21 +4,41 @@
 title: Site de apostas
 ---
 erDiagram
-    User ||--o{ ORDER : places
-    User {
-        string name
-        int ID
-        string sector
+    Usuario ||--|| Carteira : possui
+    Usuario }o--o{ Apostas : participa
+     Usuario }o--o{ Jogos : participa
+
+
+
+    Usuario {
+        string CPF PK
+        string Nome
+        string senha
+        string Email
+        date dataNasc
+        boolean tipo
     }
-    ORDER ||--|{ LINE-ITEM : contains
-    ORDER {
-        int orderNumber
-        string deliveryAddress
+
+    Carteira {
+        Int ID PK
+        String CPF FK
+        Double QntdMoedas
+        String Cartao
     }
-    LINE-ITEM {
-        string productCode
-        int quantity
-        float pricePerUnit
+
+    Apostas {
+        int ID PK
+        string CPFjogadores FK
+        string opcoes
+        string descricao
+        double saldoAcumulado
+    }
+
+    Jogos {
+        int ID PK
+        string CPFjogadores FK
+        string descricao
+        double saldoAcumulado
     }
 
 
