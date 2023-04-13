@@ -37,12 +37,9 @@
       <a href="#">Log-in</a>
       <a href="#">Sobre nós</a>
     </nav>
-
-    
-
-
 </style>
 <main>
+<img class="mb-4" src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
   <div id="popup" class="popup">
     <form>
       <label for="username">Login:</label>
@@ -130,6 +127,7 @@
 
 <p>tem que dividir as telas tbm</p>
 
-<img src="{{ asset('logo-brazsino.jpg') }}" />
+<img src="" />
 
 </body>
+
