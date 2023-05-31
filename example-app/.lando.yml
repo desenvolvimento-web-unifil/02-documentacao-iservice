@@ -1,5 +1,0 @@
-name: brazsino
-recipe: laravel
-config:
-  webroot: public
-  php: '8.1'
