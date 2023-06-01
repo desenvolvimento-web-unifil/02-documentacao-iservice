@@ -8,7 +8,7 @@
     <div id="showcase">
         <div class="showcase-container">
             <h2>BrazSino</h2>
-            <p>Vários mini-games e jogos para você se divertir!</p>
+            <p>Vários jogos para você se divertir!</p>
             <button class="btn-primary">Realize seu Login</button>
         </div>
     </div>
