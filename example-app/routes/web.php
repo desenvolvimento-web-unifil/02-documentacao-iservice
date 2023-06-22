@@ -27,7 +27,7 @@ Route::prefix('jogos')->group(function(){
 });
 
 
-
+Route::get('/bicho/roleta', [BichoController::class, 'roleta']);
 
 Route::get('/bicho/create', [BichoController::class, 'create']);
 
