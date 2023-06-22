@@ -16,6 +16,7 @@
             <ul class="navbar-intems">
                 <li class="nav-item">Ajuda</li>
                 <a href="/bicho/create" class="a-item">Criar Jogo</li>
+                <a href="{{ route('login.logout')}}" class="a-item">Sair</li>
             </ul>
         </div>
     </navbar>

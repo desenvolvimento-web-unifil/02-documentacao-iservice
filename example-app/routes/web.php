@@ -47,6 +47,8 @@ Route::post('/bicho', [BichoController::class, 'store']);
 
 Route::get('/dashboard', [JogosController::class, 'index'])->name('jogos-index');
 
+Route::get('/logout', [ProfileController::class, 'logout'])->name('login.logout');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
