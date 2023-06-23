@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link rel="stylesheet" type="text/css" href="/style/estilo.css" />
 </head>
 <body>
+    
 	<button id="spin">Spin</button>
 	<span class="arrow"></span>
 <div class="container">
@@ -18,6 +19,8 @@
 	<div class="six">6</div>
 	<div class="seven">7</div>
 	<div class="eight">8</div>
+    <script src="{{asset('js/main.js')}}"></script>
+    
 </div>
 </body>
 </html>
