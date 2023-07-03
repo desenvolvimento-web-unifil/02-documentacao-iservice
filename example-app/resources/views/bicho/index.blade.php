@@ -22,10 +22,18 @@
     </navbar>
 {{-- This comment will not be present in the rendered HTML --}}
   <div class="container">
+
     <div class="row">
+        <div class="col-sm-3">
+            <a href="{{route('bicho.roleta')}}" class="btn btn-success">Roleta da sorte</a>
+        </div>
+        <div class="col-sm-3">
+            <a href="{{route('bicho.jogobicho')}}" class="btn btn-success">Jogo do Bicho</a>
+        </div>
         <div class="col-sm-3">
             <a href="{{route('jogos-create')}}" class="btn btn-success">Novo Jogo</a>
         </div>
+        
     </div>
 <table class="table">
     <thead>
@@ -48,8 +56,6 @@
        </tr>
         @endforeach
 
-    <a href="/bicho/roleta"> ROLETA DO SILVIO</a>
-    
         </tbody>
     </table>
 </div>

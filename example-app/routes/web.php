@@ -15,7 +15,10 @@ Route::prefix('jogos')->group(function(){
 });
 
 
-Route::get('/bicho/roleta', [BichoController::class, 'roleta']);
+Route::get('/bicho/roleta', [BichoController::class, 'roleta'])->name('bicho.roleta');
+
+Route::get('/bicho/jogobicho', [BichoController::class, 'jogo'])->name('bicho.jogobicho');
+
 
 Route::get('/bicho/create', [BichoController::class, 'create']);
 
