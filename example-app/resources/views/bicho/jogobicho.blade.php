@@ -1,71 +1,22 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <title>Braz🔔Sino</title>
-    
-    <style>
-        table{
-            border-collapse: collapse;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        td {
-            border: 1px solid black;
-            padding: 10px;
-        }
+@extends('admin\layout')
+@section('title', 'Carrinho')
+@section('conteudo')
 
-        .escolhas{
-            margin-left: auto;
-            margin-right: auto;
-            border-width: 0;
-        }
+<navbar id="navbar">
+    <div class="navbar-container">
+        <img src="/img/logo-BRAZSINO.png" alt="" class="logo">
+    </div>
+</navbar>
 
-        .table-container {
-            text-align: center;
-            display: inline-block;
-            cursor: pointer
-        }
-
-        .table-container td:hover {
-            color: yellow;
-        }
-    </style>
-    
-</head>
-<body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-  </body>
-
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-        <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-        <span class="fs-4">Braz🔔Sino</span>
-      </a>
-
-      <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Inicio</a></li>
-        <li class="nav-item"><a href="/dashboard" class="nav-link">Voltar</a></li>
-      </ul>
-    </header>
-
-    <div class="p-5 text-center bg-body-tertiary">
-    <div class="container py-5">
-      <h1 class="text-body-emphasis">Jogo do Bicho</h1>
-      <p class="col-lg-8 mx-auto lead">
-        Ele mesmo o clássico jogo Brasileiro!, Agora na forma digital. <br>
-        Escolha um dos 25 bichos abaixo e veja se ele foi o escolhido!
-      </p>
-      <br>
-      <br>
-      <h2 class="text-body-emphasis">Escolha o seu bicho</h2>
+    <div class="div-jogo">
+        <h1 id="h1-jogo">Bem vindo ao jogo do bicho!!</h1>
+        <h1 id="h1-jogo">Bem-vindo ao jogo do bicho, {{ $nomeUsuario }}!</h1>
+        <p id="id-jogo">Escolha um animal e realize sua aposta, lembre-se de utilizar apenas dinheiro que não fará falta no final do mês e divirta-se.</p>
+        <p id="saldo-usuario">Seu saldo atual: R$ {{ $saldoUsuario }}</p>
     </div>
 
-    <div class="table-container">
-    <table>
+    <div>
+    <table class="table-jogo">
         <tbody>
             <tr>
                 <td onclick="var bicho =mostrarBicho(1)"><h1>(1) 🦩<br>Avestruz</h1></td>
@@ -109,16 +60,25 @@
     <br>
     <br>
     
+    <form action="{{ route('diminuir-saldo') }}" method="POST">
+    @csrf
     <table>
         <tbody>
-            <tr>
-                <td class="escolhas"> <h2 class="text-body-emphasis">Você escolheu<h2 id="bichoSelecionado"></h2></h2> </td>
-                <td class="escolhas"> <label for="numero"><h2>Valor da aposta</h2></label><br>
-                <input type="number" id="numero" name="numero"></td>
-                <td class="escolhas"> <button class="btn btn-primary d-inline-flex align-items-center" onclick="escolherBichoAleatorio()" type="button"><h2>Apostar</h2></button></td>
-            </tr>
+        <tr>
+            <td class="escolhas">
+            <h2 class="text-body-emphasis">Você escolheu<h2 id="bichoSelecionado"></h2></h2>
+            </td>
+            <td class="escolhas">
+            <label for="numero"><h2>Valor da aposta</h2></label><br>
+            <input type="number" id="numero" name="valorAposta">
+            </td>
+            <td class="escolhas">
+            <button class="btn btn-primary d-inline-flex align-items-center" type="submit"><h2>Apostar</h2></button>
+            </td>
+        </tr>
         </tbody>
     </table>
+    </form>
     
     <table>
         <tbody>
@@ -131,17 +91,6 @@
         </tbody>
     </table>
     
-
-    </div>
-
-    
-
-    <footer class="py-3 my-4">
-    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Braz🔔Sino</a></li>
-    </ul>
-    <p class="text-center text-body-secondary">© 2023 BrazSino Casa de Apostas Digitais, Inc</p>
-  </footer>
 
   <script>
         function mostrarBicho(numero) {
@@ -249,23 +198,19 @@
             var bichoAleatorio = document.getElementById("resultado").textContent;
             var resultado;
             var premio;
+            var valorAposta = document.getElementById("numero").value;  // Obter o valor da aposta do campo de entrada
 
             if (bichoEscolhido === bichoAleatorio) {
-              resultado = "Você acertou o bicho!";
-              premio = "Você ganhou " 
+                resultado = "Você acertou o bicho!";
+                premio = "Você ganhou ";
+
             } else {
-              resultado = "Você errou o bicho!";
-              premio = "Você não ganhou nada!"
+                resultado = "Você errou o bicho!";
+                premio = "Você não ganhou nada!";
 
             }
-
-            document.getElementById("resultadoJogo").textContent = resultado;
-            document.getElementById("premioJogo").textContent = premio;
-          }
-
-  
+        }
 
   </script>
-    
-</body>
-</html>
+
+@endsection

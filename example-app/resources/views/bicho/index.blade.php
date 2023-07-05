@@ -25,9 +25,6 @@
 
     <div class="row">
         <div class="col-sm-3">
-            <a href="{{route('bicho.roleta')}}" class="btn btn-success">Roleta da sorte</a>
-        </div>
-        <div class="col-sm-3">
             <a href="{{route('bicho.jogobicho')}}" class="btn btn-success">Jogo do Bicho</a>
         </div>
         <div class="col-sm-3">
@@ -35,29 +32,6 @@
         </div>
         
     </div>
-<table class="table">
-    <thead>
-        <tr>
-            <th class ="th-table" scope="col">#</th>
-            <th class ="th-table" scope="col">Nome</th>
-            <th class ="th-table" scope="col">Dificudade</th>
-            <th class ="th-table" scope="col">Valor</th>
-            <th class ="th-table" scope="col">Descrição</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach ($jogos as $jogo)
-        <tr>
-            <th class ="th-table" >{{ $jogo->id}}</th>
-            <th class ="th-table" >{{ $jogo->nome}}</th>
-            <th class ="th-table" >{{ $jogo->dificuldade}}</th>
-            <th class ="th-table" >{{ $jogo->valor}}</th>
-            <th class ="th-table" >{{ $jogo->descricao}}</th>
-       </tr>
-        @endforeach
-
-        </tbody>
-    </table>
 </div>
 
 

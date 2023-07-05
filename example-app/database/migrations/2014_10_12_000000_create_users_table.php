@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->decimal('saldo', 8, 2)->default(100.00);
         });
     }
 

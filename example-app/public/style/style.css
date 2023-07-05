@@ -166,3 +166,53 @@ body {
 .th-table {
     color: aliceblue;
 }
+
+table{
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.escolhas{
+    margin-left: auto;
+    margin-right: auto;
+    border-width: 0;
+}
+
+.table-container {
+    text-align: center;
+    display: inline-block;
+    cursor: pointer
+}
+
+.table-container td:hover {
+    color: yellow;
+}
+
+.table-jogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin-top: 70px;
+}
+
+.div-jogo {
+    text-align: center;
+    margin-top: 170px;
+  }
+  
+  #h1-jogo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  #id-jogo {
+    font-size: 16px;
+    color: gray;
+  }

@@ -8,6 +8,8 @@ use App\Http\Controllers\BichoController;
 Route::prefix('jogos')->group(function(){
 
     Route::get('/dashboard', [JogosController::class, 'index'])->name('jogos-index');
+
+    Route::get('/dashboard2', [JogosController::class, 'index'])->name('jogos-index2');
     
     Route::get('/create', [JogosController::class, 'create'])->name('jogos-create');
 
@@ -47,5 +49,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/JogoBicho', ['as'=>'jogo.bicho', 'uses'=>'App\Http\Controllers\JogoBichoController@index']);
+
+Route::post('/diminuir-saldo', [BichoController::class, 'diminuirSaldo'])->name('diminuir-saldo');
+Route::post('/aumentar-saldo', [BichoController::class, 'aumentarSaldo'])->name('aumentar-saldo');
 
 require __DIR__.'/auth.php';
