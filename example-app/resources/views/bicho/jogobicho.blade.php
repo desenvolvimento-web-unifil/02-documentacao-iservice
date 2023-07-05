@@ -2,6 +2,7 @@
 @section('title', 'Carrinho')
 @section('conteudo')
 
+<div id="jogodobicho">
 <navbar id="navbar">
     <div class="navbar-container">
         <img src="/img/logo-BRAZSINO.png" alt="" class="logo">
@@ -9,10 +10,8 @@
 </navbar>
 
     <div class="div-jogo">
-        <h1 id="h1-jogo">Bem vindo ao jogo do bicho!!</h1>
         <h1 id="h1-jogo">Bem-vindo ao jogo do bicho, {{ $nomeUsuario }}!</h1>
-        <p id="id-jogo">Escolha um animal e realize sua aposta, lembre-se de utilizar apenas dinheiro que não fará falta no final do mês e divirta-se.</p>
-        <p id="saldo-usuario">Seu saldo atual: R$ {{ $saldoUsuario }}</p>
+        <p id="id-jogo">Escolha um animal e realize sua aposta, lembre-se de utilizar apenas dinheiro que não fará falta no final do mês e divirta-se. <br> Seu saldo atual: R$ {{ $saldoUsuario }}</p>
     </div>
 
     <div>
@@ -88,6 +87,7 @@
             </tr>
         </tbody>
     </table>
+</div>
     
 
   <script>
@@ -190,8 +190,9 @@
             premio = "Você ganhou ";
             document.getElementById("resultadoJogo").textContent = resultado;
             document.getElementById("premioJogo").textContent = premio + valorAposta;
-            document.getElementById("valorApostaDiminuicao").value = valorAposta;
-            document.getElementById("diminuirSaldoForm").submit();
+            document.getElementById("valorApostaAumento").value = valorAposta;
+            document.getElementById("aumentarSaldoForm").action = document.getElementById("aumentarSaldoForm").action.replace('__valorAposta__', valorAposta);
+            document.getElementById("aumentarSaldoForm").submit();
         } else {
             resultado = "Você errou o bicho!";
             premio = "Você não ganhou nada!";
@@ -205,10 +206,16 @@
 
   </script>
 
-<form id="diminuirSaldoForm" action="{{ route('diminuir-saldo', ['valor' => '__valorAposta__']) }}" method="POST">
+<form id="diminuirSaldoForm" action="{{ route('diminuir-saldo', ['valor' => '__valorAposta__']) }}" method="POST" style="display: none;">
     @csrf
     <input type="hidden" id="valorApostaDiminuicao" name="valor" value="50">
     <button id="submitdiminuirSaldoForm" type="submit">Diminuir Saldo</button>
+</form>
+
+<form id="aumentarSaldoForm" action="{{ route('aumentar-saldo', ['valor' => '__valorAposta__']) }}" method="POST" style="display: none;">
+    @csrf
+    <input type="hidden" id="valorApostaAumento" name="valor" value="50">
+    <button id="submitaumentarSaldoForm" type="submit">Aumentar saldo</button>
 </form>
 
 @endsection

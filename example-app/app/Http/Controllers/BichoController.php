@@ -13,7 +13,16 @@ class BichoController extends Controller
 
 
     public function index() {
-        $bicho = bicho::all();
+        $jogos = Jogo::all();
+        if (Auth::check()) {
+            $nomeUsuario = Auth::user()->name;
+            $saldoUsuario = Auth::user()->saldo; // Supondo que o saldo seja um atributo da tabela de usuários
+    
+            return view('jogos-index', [
+                'nomeUsuario' => $nomeUsuario,
+                'saldoUsuario' => $saldoUsuario
+            ]);
+        }
     }
     
     public function create() {
@@ -59,11 +68,23 @@ class BichoController extends Controller
         return redirect()->back();
     }
     
-    public function aumentarSaldo($valor)
+    public function aumentarSaldo(Request $request, $valorAposta)
     {
         $valorAposta = $request->input('valor');
+        $valorApostaMultiplicado = floatval($valorAposta) * 10;
         $usuario = Auth::user();
-        $usuario->saldo += floatval($valorAposta);
+        $usuario->saldo += $valorApostaMultiplicado;
+        $usuario->save();
+    
+        return redirect()->back();
+    }
+
+    public function depositarSaldo(Request $request, $valorAposta)
+    {
+        $valorAposta = $request->input('valor');
+        $valorApostaMultiplicado = floatval($valorAposta);
+        $usuario = Auth::user();
+        $usuario->saldo += $valorApostaMultiplicado;
         $usuario->save();
     
         return redirect()->back();

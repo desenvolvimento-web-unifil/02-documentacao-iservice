@@ -11,10 +11,9 @@
     <link rel="stylesheet" href="{{asset('style/style.css')}}">
     
 </head>
-<body>
+<body class="body-index2">
 
-
-    @yield('conteudo')
+ @yield('conteudo')
     
 
 </body> 

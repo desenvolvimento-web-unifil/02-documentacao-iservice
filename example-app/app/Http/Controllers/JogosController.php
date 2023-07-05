@@ -6,15 +6,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Jogo;
+use App\Models\bicho;
+
+use Illuminate\Support\Facades\Auth;
 
 class JogosController extends Controller
 {
     public function index(){
 
-        //  dd('Olá Mundo');  //dd = representação mais tecnica
         $jogos = Jogo::all();
-        //dd($jogos);
-        return view('bicho.index', ['jogos'=>$jogos]);
+        if (Auth::check()) {
+            $nomeUsuario = Auth::user()->name;
+            $saldoUsuario = Auth::user()->saldo; // Supondo que o saldo seja um atributo da tabela de usuários
+    
+            return view('bicho.index', [
+                'nomeUsuario' => $nomeUsuario,
+                'saldoUsuario' => $saldoUsuario
+            ]);
+        }
     }
 
     
