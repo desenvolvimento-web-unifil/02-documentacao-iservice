@@ -21,3 +21,12 @@
 * Laravel
 * MySQL
 * Composer
+
+# Tabelas
+* bichos
+* failed_jobs
+* jogos
+* migrations
+* password_reset_tokens
+* personal_access_tokens
+* users
