@@ -6,6 +6,8 @@
 <navbar id="navbar">
     <div class="navbar-container">
         <img src="/img/logo-BRAZSINO.png" alt="" class="logo">
+        <a href="{{ route('login.logout')}}" class="a-item">Sair</a>
+        <a href="{{ route('jogos-index')}}" class="a-item">Voltar</a>
     </div>
 </navbar>
 
@@ -68,7 +70,7 @@
                 </td>
                 <td class="escolhas">
                     <label for="valorAposta"><h2>Valor da aposta</h2></label><br>
-                    <input type="number" id="valorAposta" name="valorAposta">
+                    <input type="number" id="valorAposta" name="valorAposta" min="1">
                 </td>
                 <td class="escolhas">
                     <button class="btn btn-primary d-inline-flex align-items-center" type="button" onclick="escolherBichoAleatorio()"><h2>Apostar</h2></button>
@@ -189,10 +191,15 @@
             resultado = "Você acertou o bicho!";
             premio = "Você ganhou ";
             document.getElementById("resultadoJogo").textContent = resultado;
-            document.getElementById("premioJogo").textContent = premio + valorAposta;
+            document.getElementById("premioJogo").textContent = premio + valorAposta * 10;
             document.getElementById("valorApostaAumento").value = valorAposta;
             document.getElementById("aumentarSaldoForm").action = document.getElementById("aumentarSaldoForm").action.replace('__valorAposta__', valorAposta);
-            document.getElementById("aumentarSaldoForm").submit();
+
+            // Atraso de 2 segundos (2000 milissegundos) antes de enviar o formulário
+            var delay = 3000;
+            setTimeout(function() {
+                document.getElementById("aumentarSaldoForm").submit();
+            }, delay);
         } else {
             resultado = "Você errou o bicho!";
             premio = "Você não ganhou nada!";
@@ -200,8 +207,15 @@
             document.getElementById("premioJogo").textContent = premio;
             document.getElementById("valorApostaDiminuicao").value = valorAposta;
             document.getElementById("diminuirSaldoForm").action = document.getElementById("diminuirSaldoForm").action.replace('__valorAposta__', valorAposta);
-            document.getElementById("diminuirSaldoForm").submit();
+
+            // Atraso de 2 segundos (2000 milissegundos) antes de enviar o formulário
+            var delay = 3000;
+            setTimeout(function() {
+                document.getElementById("diminuirSaldoForm").submit();
+            }, delay);
         }
+
+        
     }
 
   </script>

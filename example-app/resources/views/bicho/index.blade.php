@@ -25,7 +25,6 @@
             <button id="btnAtualizarSaldo" class="green-button">Depositar</button>
             
         </div>
-        <a href="{{ route('login.logout')}}" class="a-item">Sair</a>
     </navbar>
 {{-- This comment will not be present in the rendered HTML --}}
   <div class="container">
