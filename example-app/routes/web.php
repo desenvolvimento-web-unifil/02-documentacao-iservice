@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/JogoBicho', ['as'=>'jogo.bicho', 'uses'=>'App\Http\Controllers\JogoBichoController@index']);
 
-Route::post('/diminuir-saldo', [BichoController::class, 'diminuirSaldo'])->name('diminuir-saldo');
+Route::post('/diminuir-saldo/{valor}', [BichoController::class, 'diminuirSaldo'])->name('diminuir-saldo');
 Route::post('/aumentar-saldo', [BichoController::class, 'aumentarSaldo'])->name('aumentar-saldo');
 
 require __DIR__.'/auth.php';

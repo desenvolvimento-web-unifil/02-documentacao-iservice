@@ -49,9 +49,9 @@ class BichoController extends Controller
         }
     }
     
-    public function diminuirSaldo(Request $request)
+    public function diminuirSaldo(Request $request, $valorAposta)
     {
-        $valorAposta = $request->input('valorAposta');
+
         $usuario = Auth::user();
         $usuario->saldo -= floatval($valorAposta);
         $usuario->save();
@@ -61,7 +61,7 @@ class BichoController extends Controller
     
     public function aumentarSaldo($valor)
     {
-        $valorAposta = $request->input('valorAposta');
+        $valorAposta = $request->input('valor');
         $usuario = Auth::user();
         $usuario->saldo += floatval($valorAposta);
         $usuario->save();

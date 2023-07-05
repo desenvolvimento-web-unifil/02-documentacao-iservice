@@ -59,31 +59,29 @@
 
     <br>
     <br>
-    
-    <form action="{{ route('diminuir-saldo') }}" method="POST">
-    @csrf
-    <table>
+
+   <table>
         <tbody>
-        <tr>
-            <td class="escolhas">
-            <h2 class="text-body-emphasis">Você escolheu<h2 id="bichoSelecionado"></h2></h2>
-            </td>
-            <td class="escolhas">
-            <label for="numero"><h2>Valor da aposta</h2></label><br>
-            <input type="number" id="numero" name="valorAposta">
-            </td>
-            <td class="escolhas">
-            <button class="btn btn-primary d-inline-flex align-items-center" type="submit"><h2>Apostar</h2></button>
-            </td>
-        </tr>
+            <tr>
+                <td class="escolhas">
+                    <h2 class="text-body-emphasis">Você escolheu</h2>
+                    <h2 id="bichoSelecionado"></h2>
+                </td>
+                <td class="escolhas">
+                    <label for="valorAposta"><h2>Valor da aposta</h2></label><br>
+                    <input type="number" id="valorAposta" name="valorAposta">
+                </td>
+                <td class="escolhas">
+                    <button class="btn btn-primary d-inline-flex align-items-center" type="button" onclick="escolherBichoAleatorio()"><h2>Apostar</h2></button>
+                </td>
+            </tr>
         </tbody>
-    </table>
-    </form>
+    </table> 
     
     <table>
         <tbody>
             <tr>
-                <td class="escolhas"> <h2 class="text-body-emphasis">O bicho escolhido foi: <h2 id="resultado"></h2></h2> </td>     
+                <td class="escolhas"> <h2 class="text-body-emphasis">O bicho escolhido foi: <h2 id="resultado"></h2></h2> </td>
             </tr>
             <tr>
                 <td class="escolhas"> <h2 id="resultadoJogo"></h2><br><h2 id="premioJogo"></h2> </td>
@@ -181,36 +179,36 @@
   }
 
   function escolherBichoAleatorio() {
-            var bichos = [
-                "Avestruz", "Águia", "Burro", "Borboleta", "Cachorro",
-                "Cabrito", "Carneiro", "Camelo", "Cobra", "Coelho",
-                "Cavalo", "Elefante", "Galo", "Gato", "Jacaré",
-                "Leão", "Macaco", "Porco", "Pavão", "Peru",
-                "Touro", "Tigre", "Urso", "Veado", "Vaca"
-            ];
+        var bichoEscolhido = document.getElementById("bichoSelecionado").textContent;
+        var bichoAleatorio = document.getElementById("resultado").textContent;
+        var resultado;
+        var premio;
+        var valorAposta = document.getElementById("valorAposta").value; // Obtém o valor da aposta do campo de entrada
 
-            var indiceAleatorio = Math.floor(Math.random() * bichos.length);
-            var bichoAleatorio = bichos[indiceAleatorio];
-
-            document.getElementById("resultado").textContent = bichoAleatorio;
-
-            var bichoEscolhido = document.getElementById("bichoSelecionado").textContent;
-            var bichoAleatorio = document.getElementById("resultado").textContent;
-            var resultado;
-            var premio;
-            var valorAposta = document.getElementById("numero").value;  // Obter o valor da aposta do campo de entrada
-
-            if (bichoEscolhido === bichoAleatorio) {
-                resultado = "Você acertou o bicho!";
-                premio = "Você ganhou ";
-
-            } else {
-                resultado = "Você errou o bicho!";
-                premio = "Você não ganhou nada!";
-
-            }
+        if (bichoEscolhido === bichoAleatorio) {
+            resultado = "Você acertou o bicho!";
+            premio = "Você ganhou ";
+            document.getElementById("resultadoJogo").textContent = resultado;
+            document.getElementById("premioJogo").textContent = premio + valorAposta;
+            document.getElementById("valorApostaDiminuicao").value = valorAposta;
+            document.getElementById("diminuirSaldoForm").submit();
+        } else {
+            resultado = "Você errou o bicho!";
+            premio = "Você não ganhou nada!";
+            document.getElementById("resultadoJogo").textContent = resultado;
+            document.getElementById("premioJogo").textContent = premio;
+            document.getElementById("valorApostaDiminuicao").value = valorAposta;
+            document.getElementById("diminuirSaldoForm").action = document.getElementById("diminuirSaldoForm").action.replace('__valorAposta__', valorAposta);
+            document.getElementById("diminuirSaldoForm").submit();
         }
+    }
 
   </script>
+
+<form id="diminuirSaldoForm" action="{{ route('diminuir-saldo', ['valor' => '__valorAposta__']) }}" method="POST">
+    @csrf
+    <input type="hidden" id="valorApostaDiminuicao" name="valor" value="50">
+    <button id="submitdiminuirSaldoForm" type="submit">Diminuir Saldo</button>
+</form>
 
 @endsection
