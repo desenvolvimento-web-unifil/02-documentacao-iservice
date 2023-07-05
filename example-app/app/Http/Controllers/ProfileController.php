@@ -64,6 +64,20 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return view('welcomeb');
-
+    
     }
+    public function atualizarSaldo(Request $request){
+
+        $userId = $request->input('userId');
+        $novoSaldo = $request->input('saldo');
+
+        // Atualiza o saldo do usuário
+        $user = User::find($userId);
+        $user->saldo = $novoSaldo;
+        $user->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    
 }

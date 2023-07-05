@@ -16,6 +16,7 @@ class JogosController extends Controller
         //dd($jogos);
         return view('bicho.index', ['jogos'=>$jogos]);
     }
+
     
     public function create(){
 
