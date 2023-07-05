@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="style/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <title>Crud</title>
+    <title>Roleta da sorte</title>
 </head>
 <body class="body-index">
 
@@ -16,15 +16,24 @@
             <ul class="navbar-intems">
                 <li class="nav-item">Ajuda</li>
                 <a href="/bicho/create" class="a-item">Criar Jogo</li>
+                <a href="{{ route('login.logout')}}" class="a-item">Sair</li>
             </ul>
         </div>
     </navbar>
-
+{{-- This comment will not be present in the rendered HTML --}}
   <div class="container">
+
     <div class="row">
+        <div class="col-sm-3">
+            <a href="{{route('bicho.roleta')}}" class="btn btn-success">Roleta da sorte</a>
+        </div>
+        <div class="col-sm-3">
+            <a href="{{route('bicho.jogobicho')}}" class="btn btn-success">Jogo do Bicho</a>
+        </div>
         <div class="col-sm-3">
             <a href="{{route('jogos-create')}}" class="btn btn-success">Novo Jogo</a>
         </div>
+        
     </div>
 <table class="table">
     <thead>
@@ -46,6 +55,7 @@
             <th class ="th-table" >{{ $jogo->descricao}}</th>
        </tr>
         @endforeach
+
         </tbody>
     </table>
 </div>

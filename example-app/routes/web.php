@@ -3,18 +3,6 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JogosController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 use App\Http\Controllers\BichoController;
 
 Route::prefix('jogos')->group(function(){
@@ -27,6 +15,9 @@ Route::prefix('jogos')->group(function(){
 });
 
 
+Route::get('/bicho/roleta', [BichoController::class, 'roleta'])->name('bicho.roleta');
+
+Route::get('/bicho/jogobicho', [BichoController::class, 'jogo'])->name('bicho.jogobicho');
 
 
 Route::get('/bicho/create', [BichoController::class, 'create']);
@@ -47,10 +38,14 @@ Route::post('/bicho', [BichoController::class, 'store']);
 
 Route::get('/dashboard', [JogosController::class, 'index'])->name('jogos-index');
 
+Route::get('/logout', [ProfileController::class, 'logout'])->name('login.logout');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/JogoBicho', ['as'=>'jogo.bicho', 'uses'=>'App\Http\Controllers\JogoBichoController@index']);
 
 require __DIR__.'/auth.php';

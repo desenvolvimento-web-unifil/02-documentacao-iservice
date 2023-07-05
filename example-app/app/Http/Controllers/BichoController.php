@@ -28,5 +28,13 @@ class BichoController extends Controller
         
         return redirect('welcomeb');
     }
+
+    public function roleta() {
+        return view('bicho.roleta');
+    }
+
+    public function jogo() {
+        return view('bicho.jogobicho');
+    }
 }
 
