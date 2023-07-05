@@ -2,17 +2,18 @@
 @section('title', 'Carrinho')
 @section('conteudo')
 
+<div id="jogodobicho">
 <navbar id="navbar">
     <div class="navbar-container">
         <img src="/img/logo-BRAZSINO.png" alt="" class="logo">
+        <a href="{{ route('login.logout')}}" class="a-item">Sair</a>
+        <a href="{{ route('jogos-index')}}" class="a-item">Voltar</a>
     </div>
 </navbar>
 
     <div class="div-jogo">
-        <h1 id="h1-jogo">Bem vindo ao jogo do bicho!!</h1>
         <h1 id="h1-jogo">Bem-vindo ao jogo do bicho, {{ $nomeUsuario }}!</h1>
-        <p id="id-jogo">Escolha um animal e realize sua aposta, lembre-se de utilizar apenas dinheiro que não fará falta no final do mês e divirta-se.</p>
-        <p id="saldo-usuario">Seu saldo atual: R$ {{ $saldoUsuario }}</p>
+        <p id="id-jogo">Escolha um animal e realize sua aposta, lembre-se de utilizar apenas dinheiro que não fará falta no final do mês e divirta-se. <br> Seu saldo atual: R$ {{ $saldoUsuario }}</p>
     </div>
 
     <div>
@@ -59,37 +60,36 @@
 
     <br>
     <br>
-    
-    <form action="{{ route('diminuir-saldo') }}" method="POST">
-    @csrf
-    <table>
+
+   <table>
         <tbody>
-        <tr>
-            <td class="escolhas">
-            <h2 class="text-body-emphasis">Você escolheu<h2 id="bichoSelecionado"></h2></h2>
-            </td>
-            <td class="escolhas">
-            <label for="numero"><h2>Valor da aposta</h2></label><br>
-            <input type="number" id="numero" name="valorAposta">
-            </td>
-            <td class="escolhas">
-            <button class="btn btn-primary d-inline-flex align-items-center" type="submit"><h2>Apostar</h2></button>
-            </td>
-        </tr>
+            <tr>
+                <td class="escolhas">
+                    <h2 class="text-body-emphasis">Você escolheu</h2>
+                    <h2 id="bichoSelecionado"></h2>
+                </td>
+                <td class="escolhas">
+                    <label for="valorAposta"><h2>Valor da aposta</h2></label><br>
+                    <input type="number" id="valorAposta" name="valorAposta" min="1">
+                </td>
+                <td class="escolhas">
+                    <button class="btn btn-primary d-inline-flex align-items-center" type="button" onclick="escolherBichoAleatorio()"><h2>Apostar</h2></button>
+                </td>
+            </tr>
         </tbody>
-    </table>
-    </form>
+    </table> 
     
     <table>
         <tbody>
             <tr>
-                <td class="escolhas"> <h2 class="text-body-emphasis">O bicho escolhido foi: <h2 id="resultado"></h2></h2> </td>     
+                <td class="escolhas"> <h2 class="text-body-emphasis">O bicho escolhido foi: <h2 id="resultado"></h2></h2> </td>
             </tr>
             <tr>
                 <td class="escolhas"> <h2 id="resultadoJogo"></h2><br><h2 id="premioJogo"></h2> </td>
             </tr>
         </tbody>
     </table>
+</div>
     
 
   <script>
@@ -181,36 +181,55 @@
   }
 
   function escolherBichoAleatorio() {
-            var bichos = [
-                "Avestruz", "Águia", "Burro", "Borboleta", "Cachorro",
-                "Cabrito", "Carneiro", "Camelo", "Cobra", "Coelho",
-                "Cavalo", "Elefante", "Galo", "Gato", "Jacaré",
-                "Leão", "Macaco", "Porco", "Pavão", "Peru",
-                "Touro", "Tigre", "Urso", "Veado", "Vaca"
-            ];
+        var bichoEscolhido = document.getElementById("bichoSelecionado").textContent;
+        var bichoAleatorio = document.getElementById("resultado").textContent;
+        var resultado;
+        var premio;
+        var valorAposta = document.getElementById("valorAposta").value; // Obtém o valor da aposta do campo de entrada
 
-            var indiceAleatorio = Math.floor(Math.random() * bichos.length);
-            var bichoAleatorio = bichos[indiceAleatorio];
+        if (bichoEscolhido === bichoAleatorio) {
+            resultado = "Você acertou o bicho!";
+            premio = "Você ganhou ";
+            document.getElementById("resultadoJogo").textContent = resultado;
+            document.getElementById("premioJogo").textContent = premio + valorAposta * 10;
+            document.getElementById("valorApostaAumento").value = valorAposta;
+            document.getElementById("aumentarSaldoForm").action = document.getElementById("aumentarSaldoForm").action.replace('__valorAposta__', valorAposta);
 
-            document.getElementById("resultado").textContent = bichoAleatorio;
+            // Atraso de 2 segundos (2000 milissegundos) antes de enviar o formulário
+            var delay = 3000;
+            setTimeout(function() {
+                document.getElementById("aumentarSaldoForm").submit();
+            }, delay);
+        } else {
+            resultado = "Você errou o bicho!";
+            premio = "Você não ganhou nada!";
+            document.getElementById("resultadoJogo").textContent = resultado;
+            document.getElementById("premioJogo").textContent = premio;
+            document.getElementById("valorApostaDiminuicao").value = valorAposta;
+            document.getElementById("diminuirSaldoForm").action = document.getElementById("diminuirSaldoForm").action.replace('__valorAposta__', valorAposta);
 
-            var bichoEscolhido = document.getElementById("bichoSelecionado").textContent;
-            var bichoAleatorio = document.getElementById("resultado").textContent;
-            var resultado;
-            var premio;
-            var valorAposta = document.getElementById("numero").value;  // Obter o valor da aposta do campo de entrada
-
-            if (bichoEscolhido === bichoAleatorio) {
-                resultado = "Você acertou o bicho!";
-                premio = "Você ganhou ";
-
-            } else {
-                resultado = "Você errou o bicho!";
-                premio = "Você não ganhou nada!";
-
-            }
+            // Atraso de 2 segundos (2000 milissegundos) antes de enviar o formulário
+            var delay = 3000;
+            setTimeout(function() {
+                document.getElementById("diminuirSaldoForm").submit();
+            }, delay);
         }
 
+        
+    }
+
   </script>
+
+<form id="diminuirSaldoForm" action="{{ route('diminuir-saldo', ['valor' => '__valorAposta__']) }}" method="POST" style="display: none;">
+    @csrf
+    <input type="hidden" id="valorApostaDiminuicao" name="valor" value="50">
+    <button id="submitdiminuirSaldoForm" type="submit">Diminuir Saldo</button>
+</form>
+
+<form id="aumentarSaldoForm" action="{{ route('aumentar-saldo', ['valor' => '__valorAposta__']) }}" method="POST" style="display: none;">
+    @csrf
+    <input type="hidden" id="valorApostaAumento" name="valor" value="50">
+    <button id="submitaumentarSaldoForm" type="submit">Aumentar saldo</button>
+</form>
 
 @endsection

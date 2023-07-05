@@ -7,9 +7,6 @@ use App\Http\Controllers\BichoController;
 
 Route::prefix('jogos')->group(function(){
 
-    Route::get('/dashboard', [JogosController::class, 'index'])->name('jogos-index');
-
-    Route::get('/dashboard2', [JogosController::class, 'index'])->name('jogos-index2');
     
     Route::get('/create', [JogosController::class, 'create'])->name('jogos-create');
 
@@ -20,6 +17,8 @@ Route::prefix('jogos')->group(function(){
 Route::get('/bicho/roleta', [BichoController::class, 'roleta'])->name('bicho.roleta');
 
 Route::get('/bicho/jogobicho', [BichoController::class, 'jogo'])->name('bicho.jogobicho');
+
+Route::get('/dashboard', [BichoController::class, 'index'])->name('jogos-index');
 
 
 Route::get('/bicho/create', [BichoController::class, 'create']);
@@ -34,9 +33,6 @@ Route::get('/welcome', function () {
 });
 Route::post('/bicho', [BichoController::class, 'store']);
 
-//Route::get('/dashboard', function () {
-//    return view('/bicho/index');
-//});
 
 Route::get('/dashboard', [JogosController::class, 'index'])->name('jogos-index');
 
@@ -50,7 +46,8 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/JogoBicho', ['as'=>'jogo.bicho', 'uses'=>'App\Http\Controllers\JogoBichoController@index']);
 
-Route::post('/diminuir-saldo', [BichoController::class, 'diminuirSaldo'])->name('diminuir-saldo');
-Route::post('/aumentar-saldo', [BichoController::class, 'aumentarSaldo'])->name('aumentar-saldo');
+Route::post('/diminuir-saldo/{valor}', [BichoController::class, 'diminuirSaldo'])->name('diminuir-saldo');
+Route::post('/aumentar-saldo/{valor}', [BichoController::class, 'aumentarSaldo'])->name('aumentar-saldo');
+Route::post('/depositar-saldo/{valor}', [BichoController::class, 'depositarSaldo'])->name('depositar-saldo');
 
 require __DIR__.'/auth.php';
